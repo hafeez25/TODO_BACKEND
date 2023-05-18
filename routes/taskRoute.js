@@ -1,6 +1,4 @@
 const express = require("express");
-const { create } = require("../models/taskModel");
-const Task = require("../models/taskModel");
 const router = express.Router();
 const {
   createTask,
@@ -8,7 +6,7 @@ const {
   getTask,
   deleteTask,
   updateTask,
-} = require("../config/controllers/taskController");
+} = require("../controllers/taskController");
 
 router.route("/").get(getTasks).post(createTask);
 router.route("/:id").get(getTask).delete(deleteTask).put(updateTask);

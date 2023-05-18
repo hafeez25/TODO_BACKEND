@@ -1,4 +1,4 @@
-const Task = require("../../models/taskModel");
+const Task = require("../models/taskModel");
 // const { param } = require("../routes/taskroutes");
 
 // Crate Tasks
