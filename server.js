@@ -1,6 +1,5 @@
 const express = require("express");
-const connectDB = require("./config/connectDB");
-//secound method of Mongo_DB
+
 const mongoose = require("mongoose");
 const Task = require("./models/taskModel");
 const taskRoutes = require("./routes/taskRoute");
@@ -20,14 +19,7 @@ app.use(cors());
 //Routes
 
 app.use("/api/tasks", taskRoutes);
-// const logger = (req, res, next) => {
-//      console.log("MiddleWare Run");
-//      console.log(req.method);
-//      next()
-// };
 
-//Routs
-//home Router
 app.get("/", (req, res) => {
   res.send("Home page");
 });
