@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 // Register User
 const registerUser = asyncHandler(async (req, res) => {
-  res.send("Register toute");
+  const { name, email, password } = req.body;
 });
 
 module.exports = {

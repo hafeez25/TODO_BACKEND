@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRoute = require("./routes/userRoute");
 const taskRoute = require("./routes/taskRoute");
+const errorHandler = require("./middleware/errorMiddleware");
 const cors = require("cors");
 
 const app = express();
@@ -19,6 +20,9 @@ app.use("/api/tasks", taskRoute);
 app.get("/", (req, res) => {
   res.send("Home page");
 });
+
+// Error Middleware
+app.use(errorHandler);
 
 //connect DB
 const PORT = process.env.PORT || 5000;
