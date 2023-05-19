@@ -166,10 +166,36 @@ const loginStatus = asyncHandler(async (req, res) => {
   return res.json(false);
 });
 
+// Update User
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const { name, email, photo, bio } = user;
+    user.email = email;
+    user.name = req.body.name || name;
+    user.photo = req.body.phtot || photo;
+    user.bio = req.body.bio || bio;
+
+    const updatedUser = await user.save();
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updateUser.email,
+      photo: updatedUser.photo,
+      bio: updatedUser.bio,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
   logout,
   getUser,
   loginStatus,
+  updateUser,
 };
