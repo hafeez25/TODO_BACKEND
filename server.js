@@ -1,9 +1,10 @@
-const express = require("express");
 const mongoose = require("mongoose");
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const errorHandler = require("./middleware/errorMiddleware");
 const userRoute = require("./routes/userRoute");
 const taskRoute = require("./routes/taskRoute");
-const errorHandler = require("./middleware/errorMiddleware");
-const cors = require("cors");
 
 const app = express();
 require("dotenv").config();
@@ -11,6 +12,7 @@ require("dotenv").config();
 //Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cors());
 
 //Routes
@@ -28,7 +30,7 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, { dbName: "todoDB" })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`server running on port ${PORT}`);
