@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/errorMiddleware");
 const userRoute = require("./routes/userRoute");
 const taskRoute = require("./routes/taskRoute");
@@ -13,6 +14,7 @@ require("dotenv").config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(cors());
 
 //Routes

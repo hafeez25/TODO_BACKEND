@@ -101,12 +101,14 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 
   if (user && passwordIsCorrect) {
-    const { _id, name, email, bio } = user;
+    const { _id, name, email, photo, bio } = user;
     res.status(200).json({
       _id,
       name,
       email,
       password,
+      photo,
+      bio,
       token,
     });
   } else {
@@ -115,7 +117,42 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Logout User
+const logout = asyncHandler(async (req, res) => {
+  res.cookie("token", "", {
+    path: "/",
+    httpOnly: true,
+    expires: new Date(0),
+    sameSite: "none",
+    secure: true,
+  });
+
+  return res.status(200).json({ message: "Successfully Logged Out" });
+});
+
+// Get User Data
+const getUser = asyncHandler(async (req, res) => {
+  console.log("get user data");
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const { _id, name, email, photo, bio } = user;
+    res.status(200).json({
+      _id,
+      name,
+      email,
+      photo,
+      bio,
+    });
+  } else {
+    res.status(400);
+    throw new Error("User Not Found!");
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
+  logout,
+  getUser,
 };
