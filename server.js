@@ -15,7 +15,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://la-inventory-frontend.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 //Routes
 app.use("/api/users", userRoute);
