@@ -6,6 +6,7 @@ const createTask = async (req, res) => {
   try {
     console.log(req.body.name);
     const task = await Task.create({
+      user: req.user._id,
       name: req.body.name,
       completed: req.body.completed,
     });
