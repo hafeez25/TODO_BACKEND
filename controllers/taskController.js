@@ -4,7 +4,11 @@ const Task = require("../models/taskModel");
 // Crate Tasks
 const createTask = async (req, res) => {
   try {
-    const task = await Task.create(req.body);
+    console.log(req.body.name);
+    const task = await Task.create({
+      name: req.body.name,
+      completed: req.body.completed,
+    });
     res.status(200).json(task);
   } catch (error) {
     res.status(500).json({ msg: error.message });
