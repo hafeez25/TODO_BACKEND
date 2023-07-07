@@ -1,7 +1,6 @@
 const Task = require("../models/taskModel");
-// const { param } = require("../routes/taskroutes");
 
-// Crate Tasks
+// Create Tasks
 const createTask = async (req, res) => {
   try {
     console.log(req.body.name);
@@ -19,7 +18,7 @@ const createTask = async (req, res) => {
 // get all  taks
 const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find();
+    const tasks = await Task.find({ user: req.user._id });
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json({ msg: error.message });
